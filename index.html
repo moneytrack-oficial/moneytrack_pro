@@ -1,0 +1,863 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F1F2F4">
+
+    <title>MoneyTrack Pro</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #4B5563;
+            --primary-dark: #25272B;
+            --background: #F1F2F4;
+            --surface: #FFFFFF;
+            --text: #25272B;
+            --muted: #6B7280;
+            --border: #D1D5DB;
+            --green: #4B5563;
+            --red: #6B7280;
+            --radius: 19px;
+            --shadow: 0 5px 24px rgba(0,0,0,.045);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: "Poppins", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 100px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, input {
+            font: inherit;
+        }
+
+        button, a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 26px 24px 35px;
+        }
+
+        /* ENCABEZADO */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 34px;
+            padding: 18px 20px;
+            background: #E5E7EB;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            color: white;
+            background: var(--primary);
+            border-radius: 14px;
+            font-size: 19px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -.4px;
+        }
+
+        .brand p {
+            margin: 3px 0 0;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-info {
+            text-align: right;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .profile-info span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .avatar {
+            width: 41px;
+            height: 41px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #D1D5DB;
+            color: var(--gris-profundo, #25272B);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* BIENVENIDA */
+
+        .welcome {
+            margin-bottom: 24px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            letter-spacing: -.7px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .welcome p {
+            margin: 6px 0 0;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        #fechaActual {
+            display: block;
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: capitalize;
+        }
+
+        /* BALANCE */
+
+        .balance {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(125deg, #4B5563, #9CA3AF);
+            color: #FFFFFF;
+            padding: 27px;
+            border-radius: 23px;
+            margin-bottom: 17px;
+            border: 1px solid #9CA3AF;
+            box-shadow: 0 10px 25px rgba(0,0,0,.09);
+        }
+
+        .balance::after {
+            content: "";
+            position: absolute;
+            right: -60px;
+            top: -105px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .balance-layout {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .balance h3 {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+
+        .balance h1 {
+            margin: 8px 0 0;
+            font-size: 37px;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            overflow-wrap: anywhere;
+            color: #FFFFFF;
+        }
+
+        .balance-note {
+            font-size: 10px;
+            color: #F3F4F6;
+            margin-top: 9px;
+        }
+
+        .balance-symbol {
+            width: 47px;
+            height: 47px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: rgba(255,255,255,.14);
+            border: 1px solid rgba(255,255,255,.2);
+            font-size: 20px;
+        }
+
+        /* SALUD FINANCIERA */
+
+        .health {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 22px;
+            border-radius: var(--radius);
+            margin-bottom: 19px;
+            box-shadow: var(--shadow);
+        }
+
+        .health-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .health-header h2 {
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .health-header i {
+            color: var(--primary);
+        }
+
+        .barra-salud {
+            width: 100%;
+            height: 8px;
+            border-radius: 20px;
+            background: #E5E7EB;
+            overflow: hidden;
+        }
+
+        #nivelSalud {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: #4B5563;
+            transition: width .3s ease;
+        }
+
+        #textoSalud {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
+            margin: 12px 0 0;
+        }
+
+        /* INGRESOS, GASTOS Y AHORROS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 18px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            min-width: 0;
+        }
+
+        .card-icon {
+            width: 37px;
+            height: 37px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #374151;
+            background: #E5E7EB;
+        }
+
+        .ingresos .card-icon,
+        .gastos .card-icon,
+        .ahorro .card-icon {
+            color: #374151;
+            background: #E5E7EB;
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        .card .amount {
+            display: block;
+            margin-top: 6px;
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text);
+            overflow-wrap: anywhere;
+        }
+
+        /* GRÁFICO */
+
+        .section {
+            background: #FFFFFF;
+            border: 1px solid var(--border);
+            padding: 22px;
+            border-radius: var(--radius);
+            margin-bottom: 19px;
+            box-shadow: var(--shadow);
+            min-width: 0;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 19px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -.2px;
+        }
+
+        .section-heading p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .section-icon {
+            color: var(--primary);
+            font-size: 17px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 240px;
+        }
+
+        .chart-container canvas {
+            max-width: 100%;
+            filter: grayscale(1);
+        }
+
+        /* BARRA INFERIOR */
+
+        .bottom-nav {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            min-height: 74px;
+            padding: 8px 14px calc(8px + env(safe-area-inset-bottom));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(14px, 4vw, 42px);
+            background: rgba(255,255,255,.97);
+            border-top: 1px solid var(--border);
+            box-shadow: 0 -5px 22px rgba(0,0,0,.05);
+            backdrop-filter: blur(14px);
+        }
+
+        .bottom-nav a {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            color: #6B7280;
+            border-radius: 14px;
+            font-size: 18px;
+            transition: .2s;
+        }
+
+        .bottom-nav a:hover,
+        .bottom-nav a.activo {
+            color: #25272B;
+            background: #E5E7EB;
+        }
+
+        .bottom-nav a.boton-agregar {
+            width: 50px;
+            height: 50px;
+            border-radius: 17px;
+            background: #4B5563;
+            color: white;
+            font-size: 21px;
+            box-shadow: 0 6px 15px rgba(0,0,0,.15);
+        }
+
+        .bottom-nav a.boton-agregar:hover {
+            background: #25272B;
+            color: white;
+        }
+
+        /* MODO OSCURO */
+
+        body.dark-mode {
+            --background: #111315;
+            --surface: #202328;
+            --text: #F3F4F6;
+            --muted: #A1A1AA;
+            --border: #393D43;
+            --shadow: 0 5px 20px rgba(0,0,0,.18);
+        }
+
+        body.dark-mode .topbar {
+            background: #202328;
+            border-color: #393D43;
+        }
+
+        body.dark-mode .health,
+        body.dark-mode .card,
+        body.dark-mode .section {
+            background: #202328;
+            border-color: #393D43;
+        }
+
+        body.dark-mode .card-icon {
+            background: #393D43;
+            color: #F3F4F6;
+        }
+
+        body.dark-mode .bottom-nav {
+            background: rgba(32,35,40,.97);
+            border-color: #393D43;
+        }
+
+        body.dark-mode .bottom-nav a.activo,
+        body.dark-mode .bottom-nav a:hover:not(.boton-agregar) {
+            background: #393D43;
+            color: #FFFFFF;
+        }
+
+        body.dark-mode .balance {
+            background: linear-gradient(125deg, #25272B, #4B5563);
+        }
+
+        body.dark-mode .barra-salud {
+            background: #393D43;
+        }
+
+        body.dark-mode #nivelSalud {
+            background: #9CA3AF;
+        }
+
+        /* COMPATIBILIDAD CON APP.JS:
+           Elementos internos de las secciones eliminadas.
+           Permanecen ocultos para evitar errores de JavaScript. */
+
+        .elementos-compatibilidad {
+            display: none !important;
+        }
+
+        /* CELULARES */
+
+        @media (max-width: 650px) {
+            .container {
+                padding: 20px 15px 30px;
+            }
+
+            .topbar {
+                margin-bottom: 28px;
+            }
+
+            .brand h1 {
+                font-size: 15px;
+            }
+
+            .profile-info span {
+                display: none;
+            }
+
+            .welcome h2 {
+                font-size: 23px;
+            }
+
+            .balance {
+                padding: 23px 20px;
+                border-radius: 20px;
+            }
+
+            .balance h1 {
+                font-size: 31px;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 11px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .card.ahorro {
+                grid-column: 1 / -1;
+            }
+
+            .card .amount {
+                font-size: 19px;
+            }
+
+            .section,
+            .health {
+                padding: 17px;
+                border-radius: 17px;
+            }
+
+            .chart-container {
+                height: 215px;
+            }
+
+            .bottom-nav {
+                gap: clamp(10px, 5vw, 29px);
+            }
+        }
+
+        @media (max-width: 360px) {
+            .brand-icon {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand p,
+            .profile-info {
+                display: none;
+            }
+
+            .balance h1 {
+                font-size: 28px;
+            }
+
+            .bottom-nav {
+                gap: 8px;
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            .bottom-nav a {
+                width: 39px;
+                height: 39px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="container">
+
+    <!-- ENCABEZADO -->
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+
+            <div>
+                <h1>MoneyTrack Pro</h1>
+                <p>Tu dinero, bajo control</p>
+            </div>
+        </div>
+
+        <div class="profile">
+            <div class="profile-info">
+                <strong>Lautaro</strong>
+                <span>Mi cuenta</span>
+            </div>
+            <div class="avatar">L</div>
+        </div>
+
+    </header>
+
+    <!-- BIENVENIDA -->
+    <section class="welcome">
+        <h2>Hola, Lautaro 👋</h2>
+        <p>Bienvenido nuevamente. Este es tu resumen financiero.</p>
+        <span id="fechaActual"></span>
+    </section>
+
+    <!-- BALANCE -->
+    <section class="balance">
+
+        <div class="balance-layout">
+            <div>
+                <h3>Balance Total</h3>
+                <h1 id="balance">$0</h1>
+
+                <div class="balance-note">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Tus finanzas en un solo lugar
+                </div>
+            </div>
+
+            <div class="balance-symbol">
+                <i class="fa-solid fa-wallet"></i>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SALUD FINANCIERA -->
+    <section class="health">
+
+        <div class="health-header">
+            <h2>Salud financiera</h2>
+            <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+
+        <div class="barra-salud">
+            <div id="nivelSalud"></div>
+        </div>
+
+        <p id="textoSalud">Calculando tu salud financiera...</p>
+
+    </section>
+
+    <!-- INGRESOS, GASTOS Y AHORROS -->
+    <section class="cards">
+
+        <article class="card ingresos">
+            <div class="card-icon">
+                <i class="fa-solid fa-arrow-down"></i>
+            </div>
+            <h3>Ingresos</h3>
+            <span class="amount" id="ingresosTotal">$0</span>
+        </article>
+
+        <article class="card gastos">
+            <div class="card-icon">
+                <i class="fa-solid fa-arrow-up"></i>
+            </div>
+            <h3>Gastos</h3>
+            <span class="amount" id="gastosTotal">$0</span>
+        </article>
+
+        <article class="card ahorro">
+            <div class="card-icon">
+                <i class="fa-solid fa-piggy-bank"></i>
+            </div>
+            <h3>Ahorros</h3>
+            <span class="amount" id="ahorrosTotal">$0</span>
+        </article>
+
+    </section>
+
+    <!-- GRÁFICO FINANCIERO -->
+    <section class="section">
+
+        <div class="section-heading">
+            <div>
+                <h2>Resumen financiero</h2>
+                <p>Visualizá tus movimientos</p>
+            </div>
+            <i class="fa-solid fa-chart-pie section-icon"></i>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="graficoFinanzas"></canvas>
+        </div>
+
+    </section>
+
+    <!-- ELEMENTOS OCULTOS DE COMPATIBILIDAD CON APP.JS -->
+    <div class="elementos-compatibilidad" aria-hidden="true">
+
+        <div id="consejoPrincipal"></div>
+        <div id="ultimosMovimientos"></div>
+
+        <input type="number" id="presupuestoInput">
+        <button type="button" id="guardarPresupuesto"></button>
+        <div id="barraProgreso"></div>
+        <p id="textoPresupuesto"></p>
+
+        <input type="text" id="nombreMeta">
+        <input type="number" id="montoMeta">
+        <button type="button" id="guardarMeta"></button>
+        <div id="barraMeta"></div>
+        <p id="estadoMeta"></p>
+
+        <div id="ingresoHoy"></div>
+        <div id="gastoHoy"></div>
+        <div id="ingresoSemana"></div>
+        <div id="gastoSemana"></div>
+        <div id="ingresoMes"></div>
+        <div id="gastoMes"></div>
+        <div id="ingresoAnio"></div>
+        <div id="gastoAnio"></div>
+
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:10px;margin:20px 0 0">
+        MoneyTrack Pro · Tus finanzas, más simples.
+    </p>
+
+</main>
+
+<!-- BARRA DE NAVEGACIÓN -->
+<nav class="bottom-nav" aria-label="Navegación principal">
+
+    <a href="index.html" class="activo" title="Inicio" aria-label="Inicio">
+        <i class="fa-solid fa-house"></i>
+    </a>
+
+    <a
+        href="pages/estadisticas.html"
+        data-pagina="estadisticas.html"
+        title="Estadísticas"
+        aria-label="Estadísticas">
+
+        <i class="fa-solid fa-chart-pie"></i>
+    </a>
+
+    <a
+        href="pages/movimientos.html"
+        data-pagina="movimientos.html"
+        class="boton-agregar"
+        title="Agregar movimiento"
+        aria-label="Agregar movimiento">
+
+        <i class="fa-solid fa-plus"></i>
+    </a>
+
+    <a
+        href="pages/historial.html"
+        data-pagina="historial.html"
+        title="Historial"
+        aria-label="Historial">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+    </a>
+
+    <a href="#" id="modoOscuro" title="Cambiar tema" aria-label="Cambiar tema">
+        <i class="fa-solid fa-moon"></i>
+    </a>
+
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+    // FECHA ACTUAL
+    const fechaElemento = document.getElementById("fechaActual");
+
+    if (fechaElemento) {
+        fechaElemento.textContent = new Date().toLocaleDateString("es-AR", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+    }
+
+    // NAVEGACIÓN
+    (function () {
+        const ruta = window.location.pathname
+            .replace(/\\/g, "/")
+            .toLowerCase();
+
+        const estaEnPages = /\/pages\/[^/]*$/.test(ruta);
+
+        document.querySelectorAll("[data-pagina]").forEach(function (enlace) {
+            const pagina = enlace.dataset.pagina;
+
+            enlace.href = estaEnPages
+                ? pagina
+                : "pages/" + pagina;
+        });
+    })();
+
+    // MODO OSCURO
+    const botonTema = document.getElementById("modoOscuro");
+
+    function actualizarTema(oscuro) {
+        document.body.classList.toggle("dark-mode", oscuro);
+
+        const icono = botonTema.querySelector("i");
+
+        if (icono) {
+            icono.classList.toggle("fa-moon", !oscuro);
+            icono.classList.toggle("fa-sun", oscuro);
+        }
+
+        botonTema.title = oscuro
+            ? "Activar modo claro"
+            : "Activar modo oscuro";
+    }
+
+    actualizarTema(
+        localStorage.getItem("moneyTrackModoOscuro") === "activado"
+    );
+
+    botonTema.addEventListener("click", function (evento) {
+        evento.preventDefault();
+
+        const oscuro = !document.body.classList.contains("dark-mode");
+
+        actualizarTema(oscuro);
+
+        localStorage.setItem(
+            "moneyTrackModoOscuro",
+            oscuro ? "activado" : "desactivado"
+        );
+    });
+</script>
+
+</body>
+</html>
+ 
